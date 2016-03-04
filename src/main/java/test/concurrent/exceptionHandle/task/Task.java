@@ -1,4 +1,4 @@
-package test.concurrent.uncaughtException.task;
+package test.concurrent.exceptionHandle.task;
 
 /**
  * Runnable class than throws and Exception

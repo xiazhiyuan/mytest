@@ -1,4 +1,4 @@
-package test.concurrent.uncaughtException.handler;
+package test.concurrent.exceptionHandle.handler;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 

@@ -1,7 +1,7 @@
-package test.concurrent.uncaughtException.core;
+package test.concurrent.exceptionHandle.core;
 
-import test.concurrent.uncaughtException.handler.ExceptionHandler;
-import test.concurrent.uncaughtException.task.Task;
+import test.concurrent.exceptionHandle.handler.ExceptionHandler;
+import test.concurrent.exceptionHandle.task.Task;
 
 /**
  * Main class of the example. Initialize a Thread to process the uncaught
