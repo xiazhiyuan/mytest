@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:amq="http://activemq.apache.org/schema/core"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+   
+   <!-- 连接信息 --> 
+   <bean id="mqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616"/>
+      <!-- <property name="userName" value="${jms.username.default}" />
+        <property name="password" value="${jms.password.default}" />  --> 
+    </bean>
+   
+
+    
+    
+    
+    <!-- 消息接收监听器用于异步接收消息
+    <bean class="com.creditease.jms.receiver.CommonJMSReceiver">
+        <constructor-arg index="0" ref="messageProcessorFactory"/>
+        <property name="connectionFactory" ref="pooledMqConnectionFactory"/>  
+        <property name="destination" ref="lendersaleStatusQueue"/>  
+    </bean>-->
+    
+      <!-- 配置JMS模版 -->       
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">       
+        <property name="connectionFactory" ref="mqConnectionFactory"/>    
+        <property name="defaultDestination" ref="queueDestination"></property>    
+    	<property name="receiveTimeout" value="60000"></property>      
+    </bean>     
+    
+    <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="myQueue"/>
+    </bean> 
+    
+      <!-- 发送消息的目的地（主题） -->       
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">       
+        <!-- 设置消息主题的名字 -->       
+        <constructor-arg index="0" value="myTopic"/>   
+            
+    </bean>
+    
+</beans>
