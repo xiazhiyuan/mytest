@@ -1,0 +1,21 @@
+package os.nut.drools
+import test.drools.model.PointDomain;
+rule "backNums"
+  	salience 10  
+  	lock-on-active true 
+	when
+		 p : PointDomain( backNums > 0 )
+	then
+		 p.setPoint(p.getPoint()-10);
+		 p.recordPointLog(p.getUserName(),"backNums") ;
+	end
+
+rule "backMondy"
+    salience 9  
+    lock-on-active true 
+	when
+		 p : PointDomain( backMondy >= 100 )
+	then
+		 p.setPoint(p.getPoint()-100);
+		 p.recordPointLog(p.getUserName(),"backMondy") ;
+	end

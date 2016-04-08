@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:kie="http://drools.org/schema/kie-spring"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://drools.org/schema/kie-spring http://static.yrd-in.yixinonline.com/githubusercontent/droolsjbpm/droolsjbpm-integration/master/kie-spring/src/main/resources/org/kie/spring/kie-spring-6.0.0.xsd
+    ">
+    <context:component-scan base-package="org.kie.spring.annotations"/>
+    <context:component-scan base-package="test.drools.api"/>
+       <kie:kmodule id="test_kmodule">
+        <kie:kbase name="points_kbase" packages="rules">
+            <kie:ksession name="ksession-rules" type="stateless" >
+                <kie:consoleLogger/>
+            </kie:ksession>
+        </kie:kbase>
+        <kie:kbase name="dtables" packages="dtables">
+            <kie:ksession name="ksession-dtables" type="stateless" >
+                <kie:consoleLogger/>
+            </kie:ksession>
+        </kie:kbase>
+    </kie:kmodule>
+    <bean id="kiePostProcessor" class="org.kie.spring.annotations.KModuleAnnotationPostProcessor"/>
+</beans>

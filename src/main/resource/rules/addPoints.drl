@@ -1,0 +1,61 @@
+package os.nut.drools
+import test.drools.model.PointDomain;
+rule "birthday"
+	salience 100  
+	lock-on-active true 
+	when
+		 p : PointDomain( birthDay == true )
+	then 
+		p.setPoint(p.getPoint()+10);
+		p.setBuyNums(p.getBuyNums()*2);
+		p.setBuyMoney(p.getBuyMoney()*2) ;
+		p.setBillThisMonth(p.getBillThisMonth()*2) ;
+		p.recordPointLog(p.getUserName(),"birthday") ;
+	end 
+
+
+rule "billThisMonth"
+   // 2011-01-08 - 2011-08-08每月信用卡还款3次以上，每满3笔赠送30分
+    salience 99  
+    lock-on-active true 
+   // date-effective "01-Oct-2015"  
+   // date-expires "01-Oct-2017"  
+	when
+		p:PointDomain(billThisMonth>=3)
+	then
+		p.setPoint(p.getPoint()+p.getBillThisMonth()/3*30);
+		p.recordPointLog(p.getUserName(),"billThisMonth") ;
+		
+	end
+
+rule "buyMoney"
+    salience 98  
+    lock-on-active true 
+	when 
+		p:PointDomain(buyMoney>=100)
+	then
+		p.setPoint(p.getPoint()+(int)p.getBuyMoney()/100*10);
+		p.recordPointLog(p.getUserName(),"buyMoney") ;
+	end	
+
+rule "buyNums"
+    salience 97  
+    lock-on-active true
+	when
+		p:PointDomain( buyNums >= 5, mybuyNums:buyNums)
+	then
+		p.setPoint(p.getPoint()+p.getBuyNums()/5*50);
+		p.recordPointLog(p.getUserName(),"buyNums") ;
+	end		
+
+rule "all"
+    salience 96  
+    lock-on-active true
+	when
+		p:PointDomain(  birthDay == true && billThisMonth>=3 && buyMoney>=100 &&  buyNums >= 5)
+	then
+		p.setPoint(p.getPoint()+100);
+		p.recordPointLog(p.getUserName(),"all") ;
+	end
+	
+	

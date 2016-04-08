@@ -1,0 +1,9 @@
+package os.nut.drools
+ 
+import test.drools.model.Message;
+ 
+rule "Test KieFileSystem"
+    when
+    then
+        System.out.println( "hello, KieFileSystem" );
+end
