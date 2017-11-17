@@ -27,7 +27,7 @@ public class Videoconference implements Runnable{
 
 	/**
 	 * This method is called by every participant when he incorporates to the VideoConference
-	 * @param participant
+	 * @param name
 	 */
 	public void arrive(String name){
 		System.out.printf("%s has arrived.\n",name);
